@@ -1,6 +1,6 @@
 # AWS Three-Tier Web Application Deployment (Terraform)
 
-This project demonstrates how to deploy a scalable and secure **three-tier web application** architecture on **AWS** using **Terraform**.
+This project demonstrates how to deploy a scalable and secure **three-tier web application** architecture on **AWS** using **Terraform** as Infrastructure as Code.
 
 ---
 
@@ -8,10 +8,19 @@ This project demonstrates how to deploy a scalable and secure **three-tier web a
 
 The architecture includes:
 
-- **Presentation Layer** – Public-facing frontend hosted on EC2 (or optionally S3).
-- **Application Layer** – Backend service running on EC2 in private subnets.
-- **Data Layer** – Relational Database using Amazon RDS (MySQL/PostgreSQL).
+- **Presentation Layer** - Public-facing frontend hosted on EC2 (or optionally S3).
+- **Application Layer** - Backend services running securely in Private Subnets (EC2).
+- **Data Layer** - Relational Database using Amazon RDS (Mysql/Postgresql).
 
+# High-Level Architecture Diagram
+```mermaid
+
+flowchart TD
+  Internet --> ALB(Application Load Balancer)
+  ALB --> FrontendEC2(Frontend EC2 Instances in Public Subnet)
+  FrontendEC2 --> BackendEC2(Backend EC2 Instances in Private Subnet)
+  BackendEC2 --> RDS(Database in Private Subnet)
+```
 The infrastructure is **fully automated** using Terraform.
 
 ---
@@ -26,11 +35,20 @@ The infrastructure is **fully automated** using Terraform.
 ---
 
 ## Project Structure
-├── main.tf # Main infrastructure config ├── variables.tf # Input variables ├── outputs.tf # Output values ├── vpc.tf # VPC and subnet configuration ├── ec2.tf # EC2 instances for frontend/backend ├── rds.tf # RDS instance configuration ├── alb.tf # Application Load Balancer setup ├── security-groups.tf # Security rules ├── remote-backend.tf # S3 + DynamoDB backend ├── user-data.sh # Bootstrapping EC2 instances
-
-yaml
+```bash
+├aws-three-tier-app/
+├── main.tf              # Main infrastructure configuration
+├── variables.tf         # Input variables
+├── outputs.tf           # Output values
+├── vpc.tf               # VPC, Subnets, and Internet Gateway setup
+├── ec2.tf               # EC2 instances for frontend and backend
+├── rds.tf               # RDS instance (Mysql/Postgresql)
+├── alb.tf               # Application Load Balancer configuration
+├── security-groups.tf   # Security Groups
+├── remote-backend.tf    # S3 + DynamoDB backend for Terraform state
+├── user-data.sh         # Bootstrap script for EC2 initialization
+```
 ---
-
 ## How to Deploy
 
 1. **Clone the repo**
@@ -83,4 +101,7 @@ Use git filter-branch or git filter-repo to remove large files from Git history.
 
 ### License
 This project is licensed under the MIT License.
+
+### About
+This project was created to demonstrate deploying production-grade, secure, and scalable infrastructure on AWS using Terraform best practices.
 
