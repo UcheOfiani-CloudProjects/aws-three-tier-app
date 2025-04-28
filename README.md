@@ -90,14 +90,14 @@ mv main.tf main.tf.bak
 git pull
 ```
 ### Security Considerations
-Public access is restricted to only the load balancer.
-Backend and database tiers are isolated in private subnets.
-Security groups are tightly scoped to necessary traffic only.
+- Public access is restricted to only the load balancer.
+- Backend and database tiers are isolated in private subnets.
+- Security groups are tightly scoped to necessary traffic only.
 
 ### Lessons Learned
-Add .terraform/ to .gitignore to avoid committing provider binaries.
-Handle untracked files carefully before merging/pulling.
-Use git filter-branch or git filter-repo to remove large files from Git history.
+- Add .terraform/ to .gitignore to avoid committing provider binaries.
+- Handle untracked files carefully before merging/pulling.
+- Use git filter-branch or git filter-repo to remove large files from Git history.
 
 ### License
 This project is licensed under the MIT License.
